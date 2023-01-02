@@ -1,0 +1,56 @@
+name: Publish Docker
+
+on:
+  push:
+    tags: '*'
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  publish-docker:
+    name: Versioning
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          # related to issue, https://github.com/changesets/action/issues/201
+          fetch-depth: 0
+
+      - uses: actions/checkout@v2
+
+      - name: Get latest tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+
+      - name: Docker login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Echo Docker image name
+        id: docker-tag
+        run: |
+          echo "Docker image name: ghcr.io/thinc-org/thinc-discord-bot:${{ steps.get-latest-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "DOCKER_IMAGE_TAG=ghcr.io/thinc-org/thinc-discord-bot:${{ steps.get-latest-tag.outputs.tag }}" >> $GITHUB_OUTPUT
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.docker-tag.outputs.DOCKER_IMAGE_TAG }}
