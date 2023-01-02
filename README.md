@@ -11,6 +11,7 @@ Discord bot for the Thinc. Discord server.
   - [Pre-requisites](#pre-requisites)
   - [Development](#development)
   - [Deployment](#deployment)
+  - [Docker](#docker)
 - [License](#license)
 
 # Available Commands
@@ -69,6 +70,22 @@ Discord bot for the Thinc. Discord server.
 ## Deployment
 
 Push the code to the `main` branch, the bot will be automatically deployed to Thinc. server.
+
+## Docker
+
+To migrate the database, run the following command:
+
+```bash
+docker run -e DATABASE_URL=... --rm thinc-org/thinc-discord-bot pnpm run migrate dev
+```
+
+To run the bot in production mode, run the following command:
+
+```bash
+docker run --env-file .env thinc-org/thinc-discord-bot
+```
+
+> You need to provide the environment variables in `.env` file.
 
 # License
 

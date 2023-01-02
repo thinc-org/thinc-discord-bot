@@ -1,29 +1,34 @@
 FROM node:18-alpine As build
+RUN npm install -g pnpm
 # Create app directory
-WORKDIR /usr/src/app
-COPY --chown=node:node package.json yarn.lock ./
+WORKDIR /usr/app
+COPY --chown=node:node package.json pnpm-lock.yaml ./
 # Install dependencies
-RUN yarn install --fronzen-lockfile
+RUN pnpm i --frozen-lockfile
 # Bundle app source
 COPY --chown=node:node . .
-# Use the node user from the image (instead of the root user)
-RUN yarn build
+# Generate Prisma Client
+RUN npx prisma generate
+# Build the app
+RUN pnpm build
 
 FROM node:18-alpine As prod-dependencies
+RUN npm install -g pnpm
 # Create app directory
-WORKDIR /usr/src/app
-COPY --chown=node:node package.json yarn.lock ./
+WORKDIR /usr/app
+COPY --chown=node:node package.json pnpm-lock.yaml ./
 # Install production dependencies
-RUN yarn install --fronzen-lockfile --production
+RUN pnpm i --frozen-lockfile --production
 
 FROM node:18-alpine As production
-
+# Create app directory
+WORKDIR /usr/app
 # Copy the bundled code from the build stage to the production image
-COPY --chown=node:node package.json yarn.lock ./
-COPY --chown=node:node prisma ./
-COPY --chown=node:node --from=prod-dependencies /usr/src/app/node_modules ./node_modules
-COPY --chown=node:node --from=build /usr/src/app/dist ./dist
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+COPY --chown=node:node prisma ./prisma
+COPY --chown=node:node --from=prod-dependencies /usr/app/node_modules ./node_modules
+COPY --chown=node:node --from=build /usr/app/dist ./dist
 # Generate Prisma Client
-RUN yarn prisma generate
+RUN npx prisma generate
 # Start the server using the production build
-CMD ["yarn", "docker-start"]
+CMD ["node", "dist/main.js"]
