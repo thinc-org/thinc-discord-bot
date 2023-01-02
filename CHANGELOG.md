@@ -1,5 +1,13 @@
 # thinc-discord-bot
 
+## 1.0.2
+
+### Patch Changes
+
+- [#6](https://github.com/thinc-org/thinc-discord-bot/pull/6) [`e299bb0`](https://github.com/thinc-org/thinc-discord-bot/commit/e299bb0e9b93292a38efe9d69d19fe849c1ff47e) Thanks [@saenyakorn](https://github.com/saenyakorn)! - Adding proper permission to Github Action
+
+- [#4](https://github.com/thinc-org/thinc-discord-bot/pull/4) [`e754db3`](https://github.com/thinc-org/thinc-discord-bot/commit/e754db3ed2978153a48f1565c6786f3dd4e0266b) Thanks [@saenyakorn](https://github.com/saenyakorn)! - Fix docker publishing workflow
+
 ## 1.0.1
 
 ### Patch Changes
