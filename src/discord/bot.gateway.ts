@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 
-import { PrismaService } from '@app/prisma/prisma.service'
+import { GuildService } from '@app/api/guild/guild.service'
 import { InjectDiscordClient, Once, PrefixCommand } from '@discord-nestjs/core'
 import { Client, Message } from 'discord.js'
 
@@ -13,7 +13,7 @@ export class BotGateway {
   constructor(
     @InjectDiscordClient()
     private readonly client: Client,
-    private readonly prisma: PrismaService,
+    private readonly guildService: GuildService,
     private readonly registerService: RegisterCommandService,
   ) {}
 
@@ -27,11 +27,7 @@ export class BotGateway {
     const guildId = message.guildId
     const guildName = message.guild.name
     try {
-      await this.prisma.guild.upsert({
-        where: { id: guildId },
-        create: { id: guildId, name: guildName },
-        update: { name: guildName },
-      })
+      await this.guildService.registerGuild(guildId, guildName)
       this.logger.log(`Triggering register command for guild ${guildId}`)
       this.registerService.triggerRegisterCommand()
       return `Registered slash commands to guild "${guildName}"`

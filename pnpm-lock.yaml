@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@discord-nestjs/common': ^4.0.7
   '@discord-nestjs/core': ^4.3.0
+  '@discordjs/builders': ^1.4.0
   '@nestjs/cli': ^9.0.0
   '@nestjs/common': ^9.0.0
   '@nestjs/config': ^2.2.0
@@ -44,6 +45,7 @@ specifiers:
 dependencies:
   '@discord-nestjs/common': 4.0.8_25wv3k2p7uslurxwiqbeyoedz4
   '@discord-nestjs/core': 4.3.1_5b6bfqaqygr4t5rzs7espt4q5q
+  '@discordjs/builders': 1.4.0
   '@nestjs/common': 9.2.1_mnr6j2del53muneqly5h4y27ai
   '@nestjs/config': 2.2.0_b4pxbpa7chblgbyake5iz5rdmu
   '@nestjs/core': 9.2.1_e6la6qvsclaae2becwjnmfvsuq

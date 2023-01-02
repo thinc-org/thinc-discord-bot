@@ -19,13 +19,16 @@ model Guild {
 
 /// Registered member in the guild
 model Member {
-  id         String @id /// User's discord id
+  id         String /// User's discord id
   studentId  String
   nickname   String
   firstName  String
   lastName   String
   generation Int
+  confirmed  Boolean @default(false) /// Whether the member has confirmed their registration
 
   Guild   Guild  @relation(fields: [guildId], references: [id])
   guildId String
+
+  @@id([id, guildId])
 }

@@ -1,7 +1,7 @@
 /* bot.module.ts */
 import { Module } from '@nestjs/common'
 
-import { PrismaModule } from '@app/prisma/prisma.module'
+import { GuildModule } from '@app/api/guild/guild.module'
 import { DiscordModule } from '@discord-nestjs/core'
 
 import { BotSlashCommands } from './bot-slash.module'
@@ -12,7 +12,7 @@ import { RegisterCommandModule } from './register-command/register-command.modul
   imports: [
     DiscordModule.forFeature(),
     BotSlashCommands,
-    PrismaModule,
+    GuildModule,
     RegisterCommandModule,
   ],
   providers: [BotGateway],
