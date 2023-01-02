@@ -6,6 +6,9 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  packages: write
+
 jobs:
   release:
     name: Versioning
@@ -16,6 +19,12 @@ jobs:
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
+
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+      pullRequestNumber: ${{ steps.changesets.outputs.pullRequestNumber }}
 
     steps:
       - name: Checkout Repo
@@ -66,3 +75,52 @@ jobs:
           echo "Changeset publishedPackages - ${{ steps.changesets.outputs.publishedPackages }}"
           echo "Changeset hasChangesets - ${{ steps.changesets.outputs.hasChangesets }}"
           echo "Changeset pullRequestNumber - ${{ steps.changesets.outputs.pullRequestNumber }}"
+
+  publish-docker-image:
+    name: Publish Docker Image
+
+    strategy:
+      matrix:
+        node-version: [16.17.0]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    needs:
+      - release
+
+    if: ${{ needs.release.outputs.published == 'true' }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Get current tag
+        id: get-tag
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+
+      - name: Docker login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Echo Docker image name
+        id: docker-tag
+        run: |
+          echo "Docker image name: ghcr.io/thinc-org/thinc-discord-bot:${{ steps.get-tag.outputs.RELEASE_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "DOCKER_IMAGE_TAG=ghcr.io/thinc-org/thinc-discord-bot:${{ steps.get-tag.outputs.RELEASE_VERSION }}" >> $GITHUB_OUTPUT
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.docker-tag.outputs.DOCKER_IMAGE_TAG }}
