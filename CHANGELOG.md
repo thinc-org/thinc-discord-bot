@@ -1,5 +1,11 @@
 # thinc-discord-bot
 
+## 1.0.3
+
+### Patch Changes
+
+- [#8](https://github.com/thinc-org/thinc-discord-bot/pull/8) [`4b37cd3`](https://github.com/thinc-org/thinc-discord-bot/commit/4b37cd33df4c788ffa2c80b76da93f15811c74dd) Thanks [@saenyakorn](https://github.com/saenyakorn)! - Use latest tag instead for Docker image
+
 ## 1.0.2
 
 ### Patch Changes
