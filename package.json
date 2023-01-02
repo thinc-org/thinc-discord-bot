@@ -22,7 +22,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docker-start": "yarn prisma migrate dev && node dist/main.js"
+    "release": "pnpm changeset tag"
   },
   "dependencies": {
     "@discord-nestjs/common": "^4.0.7",
