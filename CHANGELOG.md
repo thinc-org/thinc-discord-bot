@@ -1,5 +1,11 @@
 # thinc-discord-bot
 
+## 1.0.1
+
+### Patch Changes
+
+- [`1f6b636`](https://github.com/thinc-org/thinc-discord-bot/commit/1f6b636edfe3fe90cb84eda1ddec741d30438a36) Thanks [@saenyakorn](https://github.com/saenyakorn)! - Fix publishing Docker image workflow
+
 ## 1.0.0
 
 ### Major Changes
