@@ -21,6 +21,7 @@ COPY --chown=node:node package.json pnpm-lock.yaml ./
 RUN pnpm i --frozen-lockfile --production
 
 FROM node:18-alpine As production
+RUN npm install -g pnpm
 # Create app directory
 WORKDIR /usr/app
 # Copy the bundled code from the build stage to the production image
