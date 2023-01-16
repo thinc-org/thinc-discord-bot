@@ -1,5 +1,11 @@
 # thinc-discord-bot
 
+## 1.0.4
+
+### Patch Changes
+
+- [#10](https://github.com/thinc-org/thinc-discord-bot/pull/10) [`b186c72`](https://github.com/thinc-org/thinc-discord-bot/commit/b186c72a55fee0beabf6647304a536e913e046a5) Thanks [@bombnp](https://github.com/bombnp)! - Fix README.md and add pnpm in final Docker image
+
 ## 1.0.3
 
 ### Patch Changes
