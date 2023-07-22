@@ -32,4 +32,4 @@ COPY --chown=node:node --from=build /usr/app/dist ./dist
 # Generate Prisma Client
 RUN npx prisma generate
 # Start the server using the production build
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
