@@ -10,6 +10,7 @@ import {
 
 import { PingCommand } from './commands/ping/ping.command'
 import { RegisterCommand } from './commands/register/register.command'
+import { VersionCommand } from './commands/version/version.command'
 import { CommandErrorFilter } from './filters/common-error.filter'
 
 @Module({
@@ -18,6 +19,7 @@ import { CommandErrorFilter } from './filters/common-error.filter'
     ReflectMetadataProvider,
     PingCommand,
     RegisterCommand,
+    VersionCommand,
     {
       provide: registerFilterGlobally(),
       useClass: CommandErrorFilter,

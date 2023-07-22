@@ -18,10 +18,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
-      "@app/*": [
-        "src/*"
-      ]
+      "@app/*": ["src/*"]
     }
   }
 }
