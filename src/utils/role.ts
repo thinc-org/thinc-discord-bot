@@ -1,6 +1,6 @@
-import { Colors, CreateRoleOptions, PermissionFlagsBits } from 'discord.js'
+import { Colors, PermissionFlagsBits, RoleCreateOptions } from 'discord.js'
 
-export const createThincRoleOptions = (): CreateRoleOptions => ({
+export const createThincRoleOptions = (): RoleCreateOptions => ({
   name: 'Thinc.',
   color: Colors.Aqua,
   mentionable: true,
@@ -8,7 +8,7 @@ export const createThincRoleOptions = (): CreateRoleOptions => ({
 
 export const createGenerationRoleOptions = (
   name: string,
-): CreateRoleOptions => ({
+): RoleCreateOptions => ({
   name: name,
   color: Colors.Orange,
   mentionable: true,
