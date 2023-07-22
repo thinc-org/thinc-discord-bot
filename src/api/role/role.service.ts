@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 
 import { InjectDiscordClient } from '@discord-nestjs/core'
-import { Client, CreateRoleOptions, Role } from 'discord.js'
+import { Client, Role, RoleCreateOptions } from 'discord.js'
 
 @Injectable()
 export class RoleService {
@@ -9,7 +9,7 @@ export class RoleService {
 
   constructor(@InjectDiscordClient() private readonly client: Client) {}
 
-  async findOrCreateRole(guildId: string, roleOptions: CreateRoleOptions) {
+  async findOrCreateRole(guildId: string, roleOptions: RoleCreateOptions) {
     let role: Role
     const guild = this.client.guilds.cache.get(guildId)
 
