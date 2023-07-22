@@ -1,5 +1,15 @@
 # thinc-discord-bot
 
+## 1.1.0
+
+### Minor Changes
+
+- [#14](https://github.com/thinc-org/thinc-discord-bot/pull/14) [`f34a981`](https://github.com/thinc-org/thinc-discord-bot/commit/f34a981cc7f48aefc303706a0fbc88d54ae372e5) Thanks [@saenyakorn](https://github.com/saenyakorn)! - Add version command
+
+### Patch Changes
+
+- [#12](https://github.com/thinc-org/thinc-discord-bot/pull/12) [`3e40a14`](https://github.com/thinc-org/thinc-discord-bot/commit/3e40a1492240bdde4250ab4e46a092dbda8c10b1) Thanks [@tithanayut](https://github.com/tithanayut)! - Fix channel.isTextBased is not a function error by upgrading discord.js
+
 ## 1.0.4
 
 ### Patch Changes
