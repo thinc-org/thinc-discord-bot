@@ -77,6 +77,9 @@ export class PostInteractionCollector {
         .setNickname(`${generationName} - ${nickname}`)
     }
 
+    // Temporary fix for the issue 'The reply to this interaction has already been sent or deferred.'
+    if (interaction.replied) return
+
     // update and reply result to user
     await interaction.update({
       content: 'ลงทะเบียนเสร็จสิ้น! อย่าลืม dismiss ข้อความนี้นะ',
